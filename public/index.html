@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BananSense — Лучший чит для CS2 2025</title>
+  <meta name="description" content="BananSense — невидимый, мощный и бананово-вкусный чит для Counter-Strike 2"/>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <style>
+    :root {
+      --banana: #FFD93D;
+      --dark: #0f0f1a;
+      --glass: rgba(15, 15, 26, 0.75);
+      --glow: 0 0 30px rgba(255, 217, 61, 0.6);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255,217,61,0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255,100,100,0.15) 0%, transparent 20%);
+    }
+    #particles-js { position: fixed; width: 100%; height: 100%; top:0; left:0; z-index:1; }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 20px 5%;
+      backdrop-filter: blur(15px);
+      background: rgba(10,10,20,0.7);
+      border-bottom: 1px solid rgba(255,217,61,0.2);
+      z-index: 1000;
+      display: center;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-family: 'Orbitron', sans-serif; font-size: 2.4rem; color: var(--banana); text-shadow: var(--glow); }
+    .logo span { color: #ff3366; }
+    nav a { color: #fff; margin: 0 20px; text-decoration: none; font-weight: 600; transition: 0.3s; }
+    nav a:hover { color: var(--banana); text-shadow: var(--glow); }
+
+    .btn {
+      padding: 12px 30px;
+      background: linear-gradient(45deg, #FFD93D, #ff3366);
+      border: none;
+      border-radius: 50px;
+      color: #000;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.4s;
+      box-shadow: var(--glow);
+    }
+    .btn:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(255,217,61,0.6); }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 6rem;
+      background: linear-gradient(90deg, #FFD93D, #ff3366, #FFD93D);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 50px rgba(255,217,61,0.6);
+      animation: pulse 3s infinite;
+    }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+    .status {
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      background: rgba(0,255,0,0.2);
+      padding: 15px 30px;
+      border-radius: 50px;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      font-weight: bold;
+      z-index:  : 999;
+      animation: blink 2s infinite;
+    }
+    @keyframes blink { 50% { opacity: 0.6; } }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .modal-content {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      padding: 40px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 420px;
+      border: 1px solid var(--banana);
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 1rem;
+    }
+    .close { color: #aaa; float: right; font-size: 2rem; cursor: pointer; }
+    .close:hover { color: var(--banana); }
+
+    .cabinet-btn { display: none; }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div class="status">UNDETECTED 26.11.2025</div>
+
+  <header>
+    <div class="logo">Banan<span>Sense</span></div>
+    <nav>
+      <a href="#features">Функции</a>
+      <a href="#buy">Купить</a>
+      <a href="#discord">Discord</a>
+    </nav>
+    <div>
+      <button class="btn" id="loginBtn">Войти</button>
+      <button class="btn cabinet-btn" id="cabinetBtn" style="display:none;">Личный кабинет</button>
+      <button class="btn" id="logoutBtn" style="display:none; background:#ff3366;">Выйти</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>BANANSENSE</h1>
+      <p>Самый сочный и невидимый чит для Counter-Strike 2 в 2025 году</p>
+      <button class="btn" id="buyBtn" style="font-size:1.8rem;padding:20px 70px;">КУПИТЬ ЗА 1490₽ / месяц</button>
+    </div>
+  </section>
+
+  <!-- Модальное окно регистрации / логина -->
+  <div class="modal" id="authModal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">×</span>
+      <h2 id="modalTitle">Вход</h2>
+      <input type="text" id="username" placeholder="Username (только для регистрации)" style="display:none;">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Пароль" required>
+      <br><br>
+      <button class="btn" id="submitAuth">Войти</button>
+      <p style="margin-top:15px;">
+        <a href="#" id="toggleMode" style="color:var(--banana);">Нет аккаунта? Зарегистрироваться</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    const stripe = Stripe('pk_test_51...'); // ←←←←← ВСТАВЬ СВОЙ PUBLISHABLE KEY ЗДЕСЬ!
+
+    // Частицы
+    particlesJS("particles-js", {
+      particles: { number: { value: 80 }, color: { value: "#FFD93D" }, shape: { type: "circle" }, opacity: { value: 0.6, random: true }, size: { value: 4, random: true }, line_linked: { enable: true, distance: 150, color: "#FFD93D", opacity: 0.3, width: 1 }, move: { enable: true, speed: 3 } },
+      interactivity: { events: { onhover: { enable: true, mode: "repulse" } } },
+      retina_detect: true
+    });
+
+    const modal = document.getElementById('authModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const closeModal = document.getElementById('closeModal');
+    const submitAuth = document.getElementById('submitAuth');
+    const toggleMode = document.getElementById('toggleMode');
+    const modalTitle = document.getElementById('modalTitle');
+    const usernameInput = document.getElementById('username');
+    let isLogin = true;
+
+    loginBtn.onclick = () => modal.style.display = "flex";
+    closeModal.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target == modal) modal.style.display = "none"; };
+
+    toggleMode.onclick = (e) => {
+      e.preventDefault();
+      isLogin = !isLogin;
+      modalTitle.textContent = isLogin ? "Вход" : "Регистрация";
+      usernameInput.style.display = isLogin ? "none" : "block";
+      toggleMode.textContent = isLogin ? "Нет аккаунта? Зарегистрироваться" : "Уже есть аккаунт? Войти";
+      submitAuth.textContent = isLogin ? "Войти" : "Зарегистрироваться";
+    };
+
+    // Авторизация
+    submitAuth.onclick = async () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const username = document.getElementById('username').value;
+
+      const endpoint = isLogin ? '/api/login' : '/api/register';
+      const body = isLogin ? { email, password } : { username, email, password };
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      const data = await res.json();
+
+      if (data.success || data.token) {
+        localStorage.setItem('token', data.token);
+        modal.style.display = "none";
+        loginBtn.style.display = "none";
+        document.getElementById('cabinetBtn').style.display = "inline-block";
+        document.getElementById('logoutBtn').style.display = "inline-block";
+        alert(isLogin ? "Успешный вход!" : "Регистрация прошла! Добро пожаловать в банановую семью!");
+        checkSubscription();
+      } else {
+        alert(data.error || "Что-то пошло не так");
+      }
+    };
+
+    // Выход
+    document.getElementById('logoutBtn').onclick = () => {
+      localStorage.removeItem('token');
+      location.reload();
+    };
+
+    // Покупка
+    document.getElementById('buyBtn').onclick = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) return alert("Сначала войди в аккаунт!");
+
+      const res = await fetch('/api/payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ amount: 149000 })
+      });
+      const { id: sessionId } = await res.json();
+      stripe.redirectToCheckout({ sessionId });
+    };
+
+    // Проверка подписки при загрузке
+    async function checkSubscription() {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const res = await fetch('/api/user', { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) {
+        const { user } = await res.json();
+        if (user.subscription === 'premium') {
+          document.querySelector('.hero p').textContent = "Ты уже премиум! Скачивай чит в личном кабинете";
+          document.getElementById('buyBtn').textContent = "ЛИЧНЫЙ КАБИНЕТ";
+          document.getElementById('buyBtn').onclick = () => window.location.href = "/cabinet.html"; // создашь потом
+        }
+      }
+    }
+    checkSubscription();
+  </script>
+</body>
+</html>
