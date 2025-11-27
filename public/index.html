@@ -7,179 +7,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
-    :root {
-      --neon: #00ffea;
-      --gold: #ffeb3b;
-      --purple: #9c27b0;
-      --dark: #0a001a;
-    }
+    :root { --neon:#00ffea; --gold:#ffeb3b; --purple:#9c27b0; --dark:#0a001a; }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      background: #000;
-      color: #fff;
-      font-family: 'Rajdhani', sans-serif;
-      overflow-x: hidden;
-      height: 100vh;
-    }
+    body { background:#000; color:#fff; font-family:'Rajdhani',sans-serif; overflow-x:hidden; min-height:100vh; }
+    .smoke-bg { position:fixed; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle at 20% 80%,rgba(120,0,255,0.4),transparent 50%),radial-gradient(circle at 80% 20%,rgba(0,255,234,0.3),transparent 50%),radial-gradient(circle at 50% 50%,rgba(0,0,0,0.9),#000 80%); animation:float 25s infinite; z-index:1; }
+    @keyframes float { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(30px,-30px) rotate(2deg)} }
+    #particles-js { position:fixed; width:100%; height:100%; z-index:2; }
 
-    /* 3D ДЫМ + ГРАДИЕНТ */
-    .smoke-bg {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at 20% 80%, rgba(120,0,255,0.4), transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(0,255,234,0.3), transparent 50%),
-                  radial-gradient(circle at 50% 50%, rgba(0,0,0,0.9), #000 80%);
-      animation: float 25s infinite;
-      z-index: 1;
-    }
-    @keyframes float { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(30px,-30px) rotate(2deg); } }
+    header { position:fixed; top:0; width:100%; padding:25px 5%; display:flex; justify-content:space-between; align-items:center; z-index:1000; backdrop-filter:blur(15px); background:rgba(0,0,0,0.4); border-bottom:1px solid rgba(0,255,234,0.3); }
+    .logo { font-family:'Orbitron',sans-serif; font-size:2.8rem; background:linear-gradient(45deg,var(--neon),var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow:0 0 30px rgba(0,255,234,0.6); }
+    .nav button { margin-left:15px; padding:12px 28px; background:transparent; border:2px solid var(--neon); color:var(--neon); border-radius:50px; cursor:pointer; transition:all 0.4s; font-weight:bold; text-transform:uppercase; }
+    .nav button:hover { background:var(--neon); color:#000; box-shadow:0 0 30px var(--neon); transform:translateY(-3px); }
 
-    /* Частицы */
-    #particles-js { position: fixed; width: 100%; height: 100%; z-index: 2; }
+    main { position:relative; z-index:10; text-align:center; padding-top:150px; }
+    .hero h1 { font-family:'Orbitron',sans-serif; font-size:5.5rem; background:linear-gradient(120deg,#00ffea,#ffeb3b,#ff00ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:glow 3s infinite alternate; }
+    @keyframes glow { from{filter:drop-shadow(0 0 20px #00ffea)} to{filter:drop-shadow(0 0 40px #ff00ff)} }
 
-    header {
-      position: fixed;
-      top: 0; width: 100%;
-      padding: 25px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      backdrop-filter: blur(15px);
-      background: rgba(0,0,0,0.4);
-      border-bottom: 1px solid rgba(0,255,234,0.3);
-    }
-    .logo {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.8rem;
-      background: linear-gradient(45deg, var(--neon), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px rgba(0,255,234,0.6);
-    }
-    .nav button {
-      margin-left: 15px;
-      padding: 12px 28px;
-      background: transparent;
-      border: 2px solid var(--neon);
-      color: var(--neon);
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.4s;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .nav button:hover {
-      background: var(--neon);
-      color: #000;
-      box-shadow: 0 0 30px var(--neon);
-      transform: translateY(-3px);
-    }
+    .prices { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:80px 0; }
+    .price-card { background:rgba(255,255,255,0.03); padding:40px 30px; border-radius:25px; width:320px; border:2px solid transparent; backdrop-filter:blur(10px); transition:all 0.5s; }
+    .price-card:hover { transform:translateY(-20px) scale(1.05); border-color:var(--neon); }
+    .popular { transform:scale(1.1); border:3px solid var(--gold)!important; box-shadow:0 0 50px rgba(255,235,59,0.4); }
+    .price { font-size:3rem; font-weight:bold; color:var(--gold); }
 
-    main { position: relative; z-index: 10; text-align: center; padding-top: 150px; }
-    .hero h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 5.5rem;
-      margin-bottom: 20px;
-      background: linear-gradient(120deg, #00ffea, #ffeb3b, #ff00ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: glow 3s infinite alternate;
-    }
-    @keyframes glow { from { filter: drop-shadow(0 0 20px #00ffea); } to { filter: drop-shadow(0 0 40px #ff00ff); } }
+    .roulette-container { margin:120px auto; width:420px; padding:50px; background:rgba(0,0,0,0.6); border-radius:30px; border:3px solid var(--neon); box-shadow:0 0 60px rgba(0,255,234,0.3); }
+    #wheel { width:320px; height:320px; margin:30px auto; border-radius:50%; background:conic-gradient(#ff1744 0% 16.6%,#00e676 16.6% 33.3%,#2979ff 33.3% 50%,#ff9100 50% 66.6%,#e91e63 66.6% 83.3%,#ffd600 83.3% 100%); position:relative; box-shadow:0 0 50px #000 inset,0 0 40px var(--neon); }
+    #wheel::after { content:"▲"; position:absolute; top:-40px; left:50%; transform:translateX(-50%); font-size:60px; color:var(--gold); text-shadow:0 0 20px #000; }
+    .spin-btn { padding:18px 60px; font-size:1.5rem; background:linear-gradient(45deg,var(--neon),#00ff88); border:none; border-radius:50px; color:#000; font-weight:bold; cursor:pointer; box-shadow:0 10px 30px rgba(0,255,234,0.4); transition:0.3s; }
+    .spin-btn:hover { transform:scale(1.1); }
 
-    .hero p {
-      font-size: 1.6rem;
-      margin: 20px 0 60px;
-      opacity: 0.9;
-    }
-
-    .prices {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin: 80px 0;
-    }
-    .price-card {
-      background: rgba(255,255,255,0.03);
-      padding: 40px 30px;
-      border-radius: 25px;
-      width: 320px;
-      border: 2px solid transparent;
-      background-clip: padding-box;
-      position: relative;
-      transition: all 0.5s;
-      backdrop-filter: blur(10px);
-    }
-    .price-card::before {
-      content: '';
-      position: absolute;
-      inset: -5px;
-      background: linear-gradient(45deg, var(--neon), var(--gold), var(--purple));
-      border-radius: 30px;
-      z-index: -1;
-      opacity: 0;
-      transition: 0.5s;
-    }
-    .price-card:hover::before { opacity: 1; }
-    .price-card:hover { transform: translateY(-20px) scale(1.05); border-color: var(--neon); }
-
-    .popular {
-      transform: scale(1.1);
-      border: 3px solid var(--gold) !important;
-      box-shadow: 0 0 50px rgba(255,235,59,0.4);
-    }
-    .price { font-size: 3rem; font-weight: bold; color: var(--gold); margin: 20px 0; }
-
-    /* Рулетка */
-    .roulette-container {
-      margin: 120px auto;
-      width: 420px;
-      padding: 50px;
-      background: rgba(0,0,0,0.6);
-      border-radius: 30px;
-      border: 3px solid var(--neon);
-      box-shadow: 0 0 60px rgba(0,255,234,0.3);
-    }
-    #wheel {
-      width: 320px; height: 320px;
-      margin: 30px auto;
-      border-radius: 50%;
-      background: conic-gradient(
-        #ff1744 0% 16.6%, #00e676 16.6% 33.3%, #2979ff 33.3% 50%,
-        #ff9100 50% 66.6%, #e91e63 66.6% 83.3%, #ffd600 83.3% 100%
-      );
-      position: relative;
-      box-shadow: 0 0 50px #000 inset, 0 0 40px var(--neon);
-    }
-    #wheel::after {
-      content: "▲";
-      position: absolute;
-      top: -40px; left: 50%;
-      transform: translateX(-50%);
-      font-size: 60px;
-      color: var(--gold);
-      text-shadow: 0 0 20px #000;
-    }
-
-    .spin-btn {
-      padding: 18px 60px;
-      font-size: 1.5rem;
-      background: linear-gradient(45deg, var(--neon), #00ff88);
-      border: none;
-      border-radius: 50px;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-      box-shadow: 0 10px 30px rgba(0,255,234,0.4);
-      transition: 0.3s;
-    }
-    .spin-btn:hover { transform: scale(1.1); box-shadow: 0 15px 40px rgba(0,255,234,0.6); }
-
-    .hidden { display: none !important; }
+    .hidden { display:none !important; }
+    .modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; }
+    .modal-content { background:rgba(255,255,255,0.05); padding:40px; border-radius:20px; width:400px; border:2px solid var(--neon); text-align:center; }
+    .modal input { width:100%; padding:15px; margin:15px 0; border-radius:10px; border:none; background:rgba(255,255,255,0.1); color:#fff; font-size:1.1rem; }
+    .modal button { width:100%; padding:15px; background:var(--neon); border:none; border-radius:10px; color:#000; font-weight:bold; cursor:pointer; }
   </style>
 </head>
 <body>
@@ -193,7 +53,7 @@
       <button id="loginBtn">Войти</button>
       <button id="registerBtn">Регистрация</button>
       <button id="cabinetBtn" class="hidden">Кабинет</button>
-      <button id="downloadBtn" class="hidden">Скачать</button>
+      <button id="downloadBtn" class="hidden">Скачать чит</button>
       <button id="discordBtn" class="hidden">Discord</button>
       <button id="logoutBtn" class="hidden">Выйти</button>
     </div>
@@ -202,56 +62,79 @@
   <main>
     <div class="hero">
       <h1>BANANSENSE</h1>
-      <p>Приватный чит #1 в СНГ • Риск бана — 0.01%</p>
+      <p>Приватный чит #1 • Риск бана 0.01%</p>
     </div>
 
     <div class="prices">
-      <div class="price-card">
-        <h3>1 МЕСЯЦ</h3>
-        <div class="price">1490 ₽</div>
-        <button onclick="buy('month')">КУПИТЬ</button>
-      </div>
-      <div class="price-card popular">
-        <h3>3 МЕСЯЦА</h3>
-        <div class="price">3990 ₽ <span style="color:#00ff00">-33%</span></div>
-        <button onclick="buy('3month')">ЛУЧШАЯ ЦЕНА</button>
-      </div>
-      <div class="price-card">
-        <h3>НАВСЕГДА</h3>
-        <div class="price">7990 ₽</div>
-        <button onclick="buy('lifetime')">КУПИТЬ</button>
-      </div>
+      <div class="price-card"><h3>1 МЕСЯЦ</h3><div class="price">1490 ₽</div><button onclick="buy('month')">КУПИТЬ</button></div>
+      <div class="price-card popular"><h3>3 МЕСЯЦА</h3><div class="price">3990 ₽ <span style="color:#0f0">-33%</span></div><button onclick="buy('3month')">ЛУЧШАЯ ЦЕНА</button></div>
+      <div class="price-card"><h3>НАВСЕГДА</h3><div class="price">7990 ₽</div><button onclick="buy('lifetime')">КУПИТЬ</button></div>
     </div>
 
     <div class="roulette-container hidden" id="roulette">
-      <h2 style="background: linear-gradient(45deg,var(--neon),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:2.5rem;">
+      <h2 style="background:linear-gradient(45deg,var(--neon),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:2.5rem;">
         Ежедневная рулетка
       </h2>
       <div id="wheel"></div>
-      <button class="spin-btn" id="spinBtn">КРУТИТЬ РУЛЕТКУ</button>
+      <button class="spin-btn" id="spinBtn">КРУТИТЬ</button>
     </div>
   </main>
 
+  <!-- МОДАЛКИ РЕГИСТРАЦИИ И ВХОДА -->
+  <div class="modal" id="authModal">
+    <div class="modal-content">
+      <h2 id="modalTitle">Регистрация</h2>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Пароль" required>
+      <button id="authSubmit">ГОТОВО</button>
+      <p style="margin-top:20px"><span id="switchText">Уже есть аккаунт? </span><a href="#" id="switchLink" style="color:var(--neon)">Войти</a></p>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 100 },
-        color: { value: ["#00ffea", "#ffeb3b", "#ff00ff"] },
-        shape: { type: ["circle", "triangle", "star"] },
-        opacity: { value: 0.8, random: true },
-        size: { value: 4, random: true },
-        move: { enable: true, speed: 3, direction: "none", random: true, out_mode: "bounce" }
-      },
-      interactivity: {
-        events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } }
-      },
-      retina_detect: true
-    });
+    particlesJS("particles-js",{particles:{number:{value:100},color:{value:["#00ffea","#ffeb3b","#ff00ff"]},shape:{type:["circle","triangle"]},opacity:{value:0.8,random:true},size:{value:4,random:true},move:{enable:true,speed:3}},interactivity:{events:{onhover:{enable:true,mode:"repulse"}}},retina_detect:true});
 
-    // Тест кнопок
-    document.getElementById("loginBtn").onclick = () => Swal.fire("Красиво?", "Сайт теперь пиздец какой охуенный", "success");
-    function buy(t) { Swal.fire("Оплата", "В реальной версии — Stripe Checkout", "info"); }
+    const modal = document.getElementById("authModal");
+    const isLogin = {value: false};
+
+    document.getElementById("registerBtn").onclick = () => { isLogin.value=false; openModal("Регистрация","Зарегистрироваться"); };
+    document.getElementById("loginBtn").onclick = () => { isLogin.value=true; openModal("Вход","Войти"); };
+    document.getElementById("switchLink").onclick = (e) => { e.preventDefault(); isLogin.value = !isLogin.value; openModal(isLogin.value?"Вход":"Регистрация", isLogin.value?"Войти":"Зарегистрироваться"); };
+
+    function openModal(title, btn) {
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("authSubmit").textContent = btn;
+      document.getElementById("switchText").textContent = isLogin.value ? "Нет аккаунта? " : "Уже есть аккаунт? ";
+      modal.style.display = "flex";
+    }
+
+    document.getElementById("authSubmit").onclick = async () => {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      if (!email || !pass) return Swal.fire("Ошибка","Заполни все поля","error");
+
+      const endpoint = isLogin.value ? "/api/login" : "/api/register";
+      const res = await fetch(endpoint, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({email,password:pass}) });
+      const data = await res.json();
+
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        Swal.fire("Успех!", isLogin.value?"Добро пожаловать!":"Аккаунт создан!","success");
+        modal.style.display = "none";
+        location.reload();
+      } else {
+        Swal.fire("Ошибка", data.error || "Что-то пошло не так","error");
+      }
+    };
+
+    // Проверка токена при загрузке
+    if (localStorage.getItem("token")) {
+      document.querySelectorAll("#loginBtn,#registerBtn").forEach(b=>b.classList.add("hidden"));
+      document.querySelectorAll("#cabinetBtn,#downloadBtn,#discordBtn,#logoutBtn,#roulette").forEach(b=>b.classList.remove("hidden"));
+    }
+    document.getElementById("logoutBtn").onclick = () => { localStorage.removeItem("token"); location.reload(); };
+    function buy(t) { Swal.fire("Оплата","В полной версии — Stripe","info"); }
   </script>
 </body>
 </html>
